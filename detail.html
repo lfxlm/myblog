@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户详情</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="vue.js"></script>
+    <script src="js/common.js"></script>
+    <script src="axios-0.18.0.min.js"></script>
+</head>
+
+<body style="margin: 0;background-color:#F6F6F6;">
+    <div id="banner">
+        <div id='banner_1'>
+            <span class="nav"></span>
+            <span class="nav nav2">蘑菇博客</span>
+            <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">首页</span>
+            <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">关于我</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
+            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="001博客/image/serach.png"></span>
+            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+            <span class='icon2' onclick="login()"><img class='serach' src="001博客/image/user.png"></span>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class='detail_box' id='app'>
+        <div class='detail_box2'>
+            <div class='detail_box_1'>个人信息</div>
+            <input class='detail_button' type="button" value="修改" @click="alter_info()">
+        </div>
+        <div class='detail_box3'>
+            <div>用户名:</div><span class='detail_span'>{{username}}</span>
+            <br>
+            <div>手机号码:</div><span class='detail_span'>{{mobile}}</span>
+            <br>
+            <div>性别:</div><span class='detail_span'>{{gender}}</span>
+            <br>
+            <div>个人标签:</div><span class='detail_span detail_span_info'>{{info}}</span>
+        </div>
+    </div>
+    <div class="detail_box4" id="new_app">
+        <div class='detail_dev_1'>
+            <div @click='redict1' class='detail_dev_2' onmouseover="this.style.background='#E4DFE0'"
+                onmouseout="this.style.background='#FFFFFF'">我的信息</div>
+        </div>
+        <br>
+        <div class='detail_dev_1'>
+            <div @click='redict2' onmouseover="this.style.background='#E4DFE0'"
+                onmouseout="this.style.background='#FFFFFF'">我的文章</div>
+        </div>
+        <br>
+        <div class='detail_dev_1'>
+            <div @click='redict3' onmouseover="this.style.background='#E4DFE0'"
+                onmouseout="this.style.background='#FFFFFF'">修改密码</div>
+        </div>
+
+    </div>
+    <footer class='footer2'>
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+        </div>
+        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
+    </footer>
+    <script src="js/detail.js"></script>
+</body>
+
+</html>

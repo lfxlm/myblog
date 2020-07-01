@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="vue.js"></script>
+    <script src="js/common.js"></script>
+    <script src="axios-0.18.0.min.js"></script>
+</head>
+
+<body style="margin: 0;background-color:#F6F6F6;">
+    <div id="banner">
+        <div id='banner_1'>
+            <span class="nav"></span>
+            <span class="nav nav2">蘑菇博客</span>
+            <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">首页</span>
+            <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">关于我</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
+            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="001博客/image/serach.png"></span>
+            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+            <span class='icon2' onclick="login()"><img class='serach' src="001博客/image/user.png"></span>
+        </div>
+    </div>
+    </div>
+    <br>
+    <br>
+    <div id='app'>
+        <div class='t_div' v-for='item in items'>
+            <div id="t_banner" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#FFFFFF'">网站首页</div>
+            <div id="t_banner2" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#FFFFFF'">
+                {{item.channel}}
+                <hr class='art_detail_line_size'>
+            </div>
+            
+            <div class='art_detail_max_box'>
+                <div class='title_info'>{{item.title}}
+                </div>
+                <div class='art_detail_icon'>
+                    <img class='img_size_3' src="/image/用户.png">
+                    <span class='font_color'>{{item.username}} &nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/标签.png">
+                    <span class='font_color'>{{item.channel}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/浏览.png">
+                    <span class='font_color'>{{item.read_count}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/点赞.png">
+                    <span class='font_color'>{{item.follow_count}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/时钟.png">
+                    <span class='font_color'>{{item.time}}&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class='content_info'>
+                    <p>{{item.content}}</p>
+                    <div @click="follow"  v-model="item.follow_count" class='follow1'><div class='text_center'><img class='image_size' src="image/add.png"> 很赞哦！{{item.follow_count}}</div></div>
+                <div class='follow2' @click="money"><div class='text_center'><img class='image_size1'src="image/mon.png"> 打赏本站</div> </div>
+                <div>相关文章</div> 
+                </div>  
+            </div>
+        </div>
+    </div>
+    <footer class='footer3'>
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+        </div>
+        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
+    </footer>
+    <script src="js/article_detail.js"></script>
+</body>
+
+</html>

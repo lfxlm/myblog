@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="vue.js"></script>
+    <script src="axios-0.18.0.min.js"></script>
+    
+</head>
+<body style="margin: 0;background-color:#F6F6F6;background: linear-gradient(to left,#d3959b,#bfe6ba);">
+    <div id="banner">
+        <div id='banner_1'>
+            <span class="nav"></span>
+            <span class="nav nav2" >蘑菇博客</span>
+            <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">首页</span>
+            <span class="nav nav3" >关于我</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
+            <span class='icon1' id="t1" onclick="test()" ><img class='serach'src="001博客/image/serach.png"></span>
+            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+            <span class='icon2' onclick="login()"><img class='serach'src="001博客/image/user.png"></span>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <form  @submit.prevent="on_submit">
+        <div class="t_box" id='app'>
+            <div class="t_box1">账户登陆注册</div>
+            <hr class='line'>
+            <br>
+            <div>
+                <input class='t_box2' type="number" placeholder="请输入手机号" v-model="mobile">
+                <img class='serach_1'src="001博客/image/user.png">
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class='t_box3'>
+                <input class='t_box2' type="password" placeholder="请输入密码" v-model="password">
+            </div>
+            <div class="t_box4">
+                <input type="checkbox"><span>记住密码</span>
+            </div>
+            <div class="t_box5">
+                <input @click="on_submit" class='t_box6' type="button"  value="登陆/注册">
+            </div>
+        </div>
+    </form>
+</body> 
+<script src="js/index.js"></script>
+</html>

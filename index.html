@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="vue.js"></script>
+    <script src="js/common.js"></script>
+    <script src="axios-0.18.0.min.js"></script>
+
+</head>
+
+<body style="margin: 0;height: auto;width: auto;background-color: #F6F6F6;">
+    <div id="banner">
+        <div id='banner_1'>
+            <span class="nav"></span>
+            <span class="nav nav2">蘑菇博客</span>
+            <span class="nav nav3">首页</span>
+            <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">关于我</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
+            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
+            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+            <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+        </div>
+    </div>
+    <br>
+    <div class='img_lb' id="img">
+        <img class='img_size' src="/image/4.jpg">
+    </div>
+    <div>
+        <img onmouseover="img()" class='img_lb_1' src="/image/减号.png">
+        <img onmouseover="img2()" class='img_lb_2' src="/image/减号.png">
+        <img onmouseover="img3()" class='img_lb_3' src="/image/减号.png">
+        <img onmouseover="img4()" class='img_lb_4' src="/image/减号.png">
+    </div>
+    <div id='label'>
+        <div v-for='new_item in new_items'>
+            <div class='img_lb_right_1'>
+                <div class='img_title'><div class='img_title_size'>{{new_item.title1}}</div> </div>
+                <img class='img_size_1' v-bind:src="new_item.avatar1">
+            </div>
+            <div class='img_lb_right_2'>
+                <div class='img_title'><div class='img_title_size'>{{new_item.title2}}</div> </div>
+                <img class='img_size_1' v-bind:src="new_item.avatar2">
+                <div class='chanel_box' id='chanel' onmouseover='line_long()' onmouseout='line_sort()'>
+                    <div class='channel_box1'>标签云</div>
+                    <hr class='line_box'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='art_app'>
+        <div v-for='item in items'>
+            <div class='max_area'>
+                <div @click='getMethod(item.id)' class='front_size' onmouseover="this.style.color='#01A7EC'"
+                    onmouseout="this.style.color='#555555'">{{item.title}}</div>
+                <div class='img_size_2' id='img2'>
+                    <img @click="getMethod(item.id)" class='img_size_2' v-bind:src="item.avatar">
+                </div>
+           
+                <div class='img_lb_right_3'>
+                    <img class='img_size_3' src="/image/用户.png">
+                    <span class='font_color'>{{item.username}} &nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/标签.png">
+                    <span class='font_color'>{{item.channel}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/浏览.png">
+                    <span class='font_color'>{{item.read_count}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/点赞.png">
+                    <span class='font_color'>{{item.follow_count}}&nbsp;&nbsp;&nbsp;</span>
+                    <img class='img_size_3' src="/image/时钟.png">
+                    <span class='font_color'>{{item.time}}&nbsp;&nbsp;&nbsp;</span>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <footer class=footer1>
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+        </div>
+        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
+    </footer>
+
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>
