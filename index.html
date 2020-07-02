@@ -43,20 +43,28 @@
         <div v-for='new_item in new_items'>
             <div class='img_lb_right_1'>
                 <div class='img_title'><div class='img_title_size'>{{new_item.title1}}</div> </div>
-                <img class='img_size_1' v-bind:src="new_item.avatar1">
+                <img class='img_size_1' @click='getMethod(new_item.id1)' v-bind:src="new_item.avatar1">
             </div>
             <div class='img_lb_right_2'>
                 <div class='img_title'><div class='img_title_size'>{{new_item.title2}}</div> </div>
-                <img class='img_size_1' v-bind:src="new_item.avatar2">
+                <img class='img_size_1'  @click='getMethod(new_item.id2)' v-bind:src="new_item.avatar2">
                 <div class='chanel_box' id='chanel' onmouseover='line_long()' onmouseout='line_sort()'>
                     <div class='channel_box1'>标签云</div>
                     <hr class='line_box'>
+                    <div class='chaenl_box2'  onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">java</div>
+                    <div class='chaenl_box3' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">python</div>
+                    <div class='chaenl_box4' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">css</div>
+                    <div class='chaenl_box5' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">javascript</div>
+                    <div class='chaenl_box6' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">前端</div>
+                    <div class='chaenl_box7' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">后端</div>
+                    <div class='chaenl_box8' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">docker</div>
+                    <div class='chaenl_box9' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">mysql</div>
                 </div>
             </div>
         </div>
     </div>
     <div id='art_app'>
-        <div v-for='item in items'>
+        <div v-for='(item,index) in items'>
             <div class='max_area'>
                 <div @click='getMethod(item.id)' class='front_size' onmouseover="this.style.color='#01A7EC'"
                     onmouseout="this.style.color='#555555'">{{item.title}}</div>
@@ -78,13 +86,17 @@
                 </div>
             </div>
             <br>
+            <div class='tomany' v-if='load_many(index)' @click='load_many_article(item.id)'>点击加载更多</div>
+            
         </div>
+        <div class='haveno' v-if='showno'>没有更多了</div>
     </div>
 
     <footer class=footer1>
-        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+       
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> Copyright 2019-2020 蘑菇博客</div>
         </div>
-        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
+        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> 赣ICP备18014504号</div></div>
     </footer>
 
 

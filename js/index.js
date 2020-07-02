@@ -94,11 +94,17 @@ var app = new Vue({
             .then(response =>{
                 if (response.data.code==0){
                     alert(response.data.errmsg)
+                    // 保存token
+                    localStorage.setItem("username", response.data.data.username)
+                    localStorage.setItem("token", response.data.data.token)
+                    // localStorage.setItem("avatar", response.data.data.avatar)
+                    alert(response.data.data.token)
                     window.location.href='index.html'
                 }
                 else{
                     alert(response.data.errmsg)
                 }
+                
             })
         }
     }
@@ -118,6 +124,8 @@ var new_app = new Vue({
         time:"2020-05-01",
         items:[],
         id:'',
+        flag:'',
+        showno:false
     },
     mounted:function(){
         this.get_article_info()
@@ -132,7 +140,7 @@ var new_app = new Vue({
             .then(response=>{
                 if (response.data.code==0){
                     this.items = response.data.data
-                    
+                    this.flag = response.data.max_flag
                 }
                 else{
                     alert(response.data.errmsg)
@@ -142,6 +150,35 @@ var new_app = new Vue({
         getMethod:function(id){
             
             window.location.href='article_detail.html?id='+id
+        },
+        load_many:function(final_id){
+            if (final_id<this.flag-1){
+                return true
+            }
+            else{
+                this.showno=true
+                return false
+            }
+            
+        },
+        load_many_article:function(start_id){
+            axios.get(this.host+'/articles/?start='+start_id+'&end='+this.flag,{
+                responseType:'json',
+                changeOrigin: true,
+                withCredentials:true, 
+            })
+            .then(response=>{
+                if(response.data.code==0){
+                    // this.items = response.data.data
+                    let items = {}
+                    items = this.items.concat(response.data.data)
+                    this.items = items
+                    this.flag = response.data.max_flag
+                }
+                else{
+                    alert(response.data.errmsg)
+                }
+            })
         }
     }
 })
@@ -171,6 +208,10 @@ var label = new Vue({
                 }
                 
             })
+        },
+        getMethod:function(id){
+            
+            window.location.href='article_detail.html?id='+id
         }
     }
 })

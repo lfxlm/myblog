@@ -29,7 +29,6 @@
             <span class='icon2' onclick="login()"><img class='serach' src="001博客/image/user.png"></span>
         </div>
     </div>
-    </div>
     <br>
     <br>
     <div id='app'>
@@ -40,7 +39,7 @@
                 {{item.channel}}
                 <hr class='art_detail_line_size'>
             </div>
-            
+
             <div class='art_detail_max_box'>
                 <div class='title_info'>{{item.title}}
                 </div>
@@ -58,18 +57,91 @@
                 </div>
                 <div class='content_info'>
                     <p>{{item.content}}</p>
-                    <div @click="follow"  v-model="item.follow_count" class='follow1'><div class='text_center'><img class='image_size' src="image/add.png"> 很赞哦！{{item.follow_count}}</div></div>
-                <div class='follow2' @click="money"><div class='text_center'><img class='image_size1'src="image/mon.png"> 打赏本站</div> </div>
-                <div>相关文章</div> 
-                </div>  
+                    <div @click="follow" class='follow1'>
+                        <div class='text_center'><img class='image_size' src="image/add.png"> 很赞哦！{{item.follow_count}}
+                        </div>
+                    </div>
+                    <div class='follow2' @click="money">
+                        <div class='text_center'><img class='image_size1' src="image/mon.png"> 打赏本站</div>
+                    </div>
+                    <div class='related_article'><img class='img_size_4' src="image/book.png"> 相关文章
+                        <hr class='related_line_size'>
+                        <div v-for='relate_item in relate_items'>
+                            <div class='title_size1' onmouseover="this.style.color='#01A7EC'"
+                                onmouseout="this.style.color='#777'" @click='to_article(relate_item.id)'>
+                                {{relate_item.title1}}</div>
+                            <div class='title_size2' onmouseover="this.style.color='#01A7EC'"
+                                onmouseout="this.style.color='#777'" @click='to_article(relate_item.id)'>
+                                {{relate_item.title2}}</div>
+                        </div>
+                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <footer class='footer3'>
-        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+    <div id='new_app'class='comment_box'><img class='img_size_0' src="image/评论.png"> <div class='text_size_1'>文章评论</div> 
+        <hr class='related_line_size_1'>
+        <img class='img_size_5' src="image/user.png">
+        <textarea class='text_area' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~' v-model='comment'>{{comment}}</textarea>
+        <div class='send_commont' onmouseover="this.style.backgroundColor='#FFBCC5'"
+            onmouseout="this.style.backgroundColor='#409EFF'">
+            <div class='text_hight' @click='sendcomment'>发送评论</div>
         </div>
-        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
-    </footer>
+        <div class='send_commont2' onmouseover="this.style.backgroundColor='#FFBCC5'"
+            onmouseout="this.style.backgroundColor='#909399'">
+            <div class='text_hight' @click='resetcomment'>取消评论</div>
+        </div>
+        <div class='t_size' v-if='isShow'>
+            还没有评论，快来抢沙发吧！
+        </div>
+        <div class='commont_box' v-for='(commont,index) in commont_items' v-if="commont.del=='0'">
+            <img class='img_size_6' v-bind:src="commont.useravatar">
+            <!-- 评论正文 -->
+           <div class='username_size'>{{commont.username}}</div> 
+            <div class='time_size'>{{commont.time}}</div>
+            <div class='commont_size'>{{commont.comment}}</div>
+            <div class='no1' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" @click='show_reply_box(index)'>回复</div>
+            <div class='no2' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click='cant'>举报</div>
+            <div class='no3' v-if='isshow_del' @click='del_my_comment(commont.id)' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除</div>
+
+            <!-- 显示评论回复 -->
+            <div v-if='is_show_reply_comment(commont.subs)' class='reply_comment_size' v-for='reply in commont.subs'>
+                <img class='img_size_6' v-bind:src="commont.useravatar">
+            <!-- 评论正文 -->
+           <div class='username_size'>{{reply.username}}</div> 
+            <div class='time_size'>{{reply.time}}</div>
+            <div class='commont_size'>{{reply.comment}}</div>
+            <div class='no1' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" @click='cant'>回复</div>
+            <div class='no2' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click='cant'>举报</div>
+            <div class='no3' v-if='isshow_del' @click='del_my_comment(reply.id)' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除</div>
+            </div>
+             <!-- 显示评论回复 -->
+
+            <!-- 显示回复输入框 -->
+            <div v-if='show_reply'> 
+                 <img class='img_size_7' src="image/user.png">
+        <textarea class='text_area1' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~' v-model='reply_comment'>{{reply_comment}}</textarea>
+        <div class='send_commont' onmouseover="this.style.backgroundColor='#FFBCC5'"
+            onmouseout="this.style.backgroundColor='#409EFF'">
+            <div class='text_hight' @click='recvecomment(commont.id)'>回复评论</div>
+        </div>
+        <div class='send_commont2' onmouseover="this.style.backgroundColor='#FFBCC5'"
+            onmouseout="this.style.backgroundColor='#909399'">
+            <div class='text_hight' @click='resetcomment'>取消回复</div>
+        </div>
+    </div>
+        </div>
+        <footer class='footer3'>
+            　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
+            </div>
+            <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
+        </footer>
+    
+    </div>
+    
+    
+   
     <script src="js/article_detail.js"></script>
 </body>
 

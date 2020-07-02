@@ -1,25 +1,15 @@
+import datetime
+
 from django.db import models
 
 # Create your models here.
 from user.models import User
 
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=500)
-    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='subs')
-
-    class Meta:
-        db_table = 't_comment'
-        verbose_name = '评论'
-        verbose_name_plural = verbose_name
-
-
 class Article(models.Model):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
     time = models.DateTimeField(auto_now_add=True)
     follow_count = models.IntegerField(default=0)
     read_count = models.IntegerField(default=0)
@@ -42,6 +32,29 @@ class Article(models.Model):
             'channel': self.channel,
             'content': self.content,
 
+        }
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=500)
+    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='subs')
+    ctime = models.DateTimeField(auto_now_add=True)
+    is_del = models.IntegerField(default=0)  # 0.未删除,1.删除状态
+
+    class Meta:
+        db_table = 't_comment'
+        verbose_name = '评论'
+        verbose_name_plural = verbose_name
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'article': self.article.id,
+            'comment': self.comment,
+            'time': self.ctime.strftime('%Y-%m-%d %H:%M:%S'),
+            'del': self.is_del,
         }
 
 

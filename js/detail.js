@@ -19,15 +19,18 @@ var app = new Vue({
         mobile:"",
         username:"",
         info:"",
-        gender:""
+        gender:"",
+        token: localStorage.token,
     },
     mounted:function(){
         this.getUserInfo()
     },
     methods:{
         getUserInfo:function(){
-            axios.get(this.host+"/user/info/"+getCookie('username'),{
-                mobile:getCookie('username')
+            axios.get(this.host+"/user/info",{
+                headers: {
+                    'Authorization': this.token
+                }
             },
             {
                 responseType:'json',
