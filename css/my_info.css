@@ -1,0 +1,239 @@
+.comment_box{
+    position: relative;
+    height: auto;
+    width: 300px;
+    /* border: 1px solid red; */
+    top: 10px;
+    left: 300px;
+    border-radius: 10px;
+}
+.comment_box_1{
+    position: relative;
+    left: -275px;
+    top: -10px;
+    height: auto;
+}
+.comment_max_box{
+   
+    position: relative;
+    overflow-y: scroll;
+    height: 800px;
+    /* border: 1px solid #FFFFFF; */
+    /* background-color: #FFFFFF; */
+    width: 350px;
+    left: 280px;
+    /* top: 1000px; */
+    border-radius: 10px;
+    padding-right: 20px;
+    /* box-shadow:3px 3px 3px #888888; */
+
+}
+.comment_max_box1{
+    /* overflow: auto; */
+    position: relative;
+    /* border: 1px solid #FFFFFF; */
+    /* background-color: #FFFFFF; */
+    width: 350px;
+    /* left: 300px; */
+    /* top: 1000px; */
+    border-radius: 10px;
+    /* box-shadow:3px 3px 3px #888888; */
+}
+
+.name_size{
+    position: relative;
+    color: #777777;
+    top: 30px;
+    left: 10px;
+}
+.name_size10{
+    position: relative;
+    color: #777777;
+    top: 13px;
+    left: 10px;
+}
+.time_size{
+    position: relative;
+    color: #777777;
+    top: -12px;
+    left: 136px;  
+}
+.time_size10{
+    position: relative;
+    color: #777777;
+    top: -30px;
+    left: 136px;  
+    font-size: 10px;
+}
+.comment_size{
+    position: relative;
+    color: #777777;
+    top: 1px;
+    left: 6px;  
+    font-size: 12px;
+    cursor:pointer;
+}
+.lite_comment_box{
+    position: relative;
+    border: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
+    /* width: 350px;
+    left: 300px; */
+    border-radius: 10px;
+    box-shadow:3px 3px 3px #888888;
+}
+.title_size{
+    position: relative;
+    top: -30px;
+    /* width: 100px; */
+    color: #01A7EC;
+    cursor:pointer;
+    width: 200px;
+}
+.history_max_box{
+    position: absolute;
+    overflow: auto;
+    height: 800px;
+    padding-right: 20px;
+    /* border: 1px solid #FFFFFF; */
+    /* background-color: #FFFFFF; */
+    width: 350px;
+    left: 680px;
+    top: 105px;
+    border-radius: 10px;
+    /* box-shadow:3px 3px 3px #888888; */
+}
+.lite_comment_box1{
+    position: relative;
+    /* border: 1px solid #FFFFFF;
+    background-color: #FFFFFF; */
+    /* width: 350px;
+    left: 300px; */
+    /* border-radius: 10px;
+    box-shadow:3px 3px 3px #888888; */
+}
+.vistmy{
+    position: absolute;
+    border: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
+    width: 300px;
+    left: 1070px;
+    top: 102px;
+    border-radius: 10px;
+    box-shadow:3px 3px 3px #888888;
+
+}
+html{
+    width:100%;   
+    overflow-x:hidden;
+}  
+.name_size1{
+    position: relative;
+    color: #777777;
+    top: -1px;
+    left: 0px;
+}
+.vistmy_1{
+    position: relative;
+    color: #777777;
+    top: 5px;
+    left: 15px;
+}
+.time_size1{
+    position: relative;
+    color: #777777;
+    top: -22px;
+    left: 146px;  
+    font-size: 10px;
+}
+.title_comment{
+    position: relative;
+    left: 430px;
+    top: -10px;
+    color: #FC9F9A;
+}
+.history_size{
+    position: relative;
+    padding-top: 10px;
+    left: 820px;
+    top: -842px;
+    color: #01A2E5;
+}
+.pad{
+    padding-top: 1px;
+    position: relative;
+    /* top: -20px; */
+}
+.today_size{
+    position: relative;
+    left: 100px;
+    top: -30px;
+    color: #EDC951;
+}
+.delete{
+    position: relative;
+    /* top: -150px;   */
+    top: 5px;
+    left: 300px;
+    color: red;
+    cursor:pointer;
+    z-index:999;
+    
+}
+.title_size1{
+    position: relative;
+    top: -35px;
+    color: #01A7EC;
+    cursor:pointer;
+    width: 200px;
+   
+
+}
+.delete_box{
+    position: fixed;
+    cursor:pointer;
+    z-index:999;
+    border: 1px solid white;
+    background-color: #FFFFFF;
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow:3px 3px 3px #888888;
+    left: 0px;
+    top: 300px;
+
+}
+.delete_box_main{
+    position: fixed;
+    cursor:pointer;
+    z-index:999;
+    border: 1px solid white;
+    background-color: #FFFFFF;
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow:3px 3px 3px #888888;
+    left: 0px;
+    top: 420px;
+
+}
+.delete_box_1{
+    position: relative;
+    left: 50px;
+    top: 10px;
+}
+.delete_box_2{
+    position: relative;
+    left: 25px;
+    top: 10px;
+}
+.false_delete{
+    position: relative;
+    top: 28px;
+    left: 20px;
+}
+.sure_delete{
+    position: relative;
+    top: 10px;
+    left: 130px;
+}

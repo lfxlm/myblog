@@ -9,14 +9,25 @@ var test = function () {
         t3.setAttribute('hidden', 'hidden')
     }
 }
-
-var toabout = function () {
-    window.location.href = 'aboutmy.html'
+var toabout = function(){
+    window.location.href='aboutmy.html'
 }
-var index = function () {
-    window.location.href = 'index.html'
+var index = function(){
+    window.location.href='index.html'
+    }
+var toclassify=function(){
+    window.location.href='classify.html'
 }
-
+var tosort=function(){
+    window.location.href='sort.html'
+}
+var tochanel=function(){
+    window.location.href='chanel.html'
+}
+var tomessage=function(){
+    window.location.href='message.html'
+}
+ 
 var login = function () {
     var username = getCookie('username')
     if (username == null) {
@@ -51,6 +62,9 @@ var app = new Vue({
                 responseType: 'json',
                 changeOrigin: true,
                 withCredentials: true,
+                headers: {
+                    'Authorization': this.token
+                }
             })
                 .then(response => {
                     if (response.data.code == 0) {
@@ -248,3 +262,48 @@ var new_app = new Vue({
         }
     }
 })
+var isshowlogout = new Vue({
+    el:"#banner",
+    data:{ 
+        host:"http://127.0.0.1:8000",
+        isshowlogout:false,
+        token: localStorage.token,
+    },
+    methods:{
+        showlogout:function(){
+           
+            this.isshowlogout=true
+        },
+        notshowlogout:function(){
+            setTimeout(()=>{
+                this.isshowlogout=false
+            },1500)
+            
+        },
+        logout:function(){
+            axios.post(this.host+'/logout',{},{
+                responseType:'json',
+                changeOrigin: true,
+                withCredentials:true,
+                headers: {
+                    'Authorization': this.token
+                }
+
+            })
+            .then(response=>{
+                if (response.data.code==0){
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("username") 
+                    alert('退出登陆成功')
+                    window.location.reload();
+                    
+                }
+                else{
+                    alert(response.data.errmsg)
+                }
+            })
+        }
+    }
+
+})
+

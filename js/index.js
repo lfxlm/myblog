@@ -15,17 +15,19 @@ var toabout = function(){
 }
 var index = function(){
     window.location.href='index.html'
-    // axios.get('user/')
-    // .then(function (response){
-    //     console.log(response)
-    // })
-    // .catch(function (error){
-    //     console.log(error);{
-    //     }
-    // })
-    
+    }
+var toclassify=function(){
+    window.location.href='classify.html'
 }
-
+var tosort=function(){
+    window.location.href='sort.html'
+}
+var tochanel=function(){
+    window.location.href='chanel.html'
+}
+var tomessage=function(){
+    window.location.href='message.html'
+}
 var login = function(){
     var  username = getCookie('username')
     if (username ==null){
@@ -98,7 +100,7 @@ var app = new Vue({
                     localStorage.setItem("username", response.data.data.username)
                     localStorage.setItem("token", response.data.data.token)
                     // localStorage.setItem("avatar", response.data.data.avatar)
-                    alert(response.data.data.token)
+                    // alert(response.data.data.token)
                     window.location.href='index.html'
                 }
                 else{
@@ -116,6 +118,7 @@ var new_app = new Vue({
     el:"#art_app",
     data:{
         host:"http://127.0.0.1:8000",
+        token: localStorage.token,
         title:"第一个网页",
         username :"未知用户",
         channel:"python",
@@ -123,9 +126,13 @@ var new_app = new Vue({
         follow_count:"0",
         time:"2020-05-01",
         items:[],
+        local_items:[{"title":"这是一条标题",'username':'liufei','content':'这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容这是正文内容'}],
         id:'',
         flag:'',
-        showno:false
+        showno:false,
+        show_article_info:false,
+        get_local_article:'',
+
     },
     mounted:function(){
         this.get_article_info()
@@ -179,6 +186,36 @@ var new_app = new Vue({
                     alert(response.data.errmsg)
                 }
             })
+        },
+        get_articl_info:function(artcile_id){
+            var that = this
+            timer = setTimeout(function(){
+                that.show_article_info=true
+                    axios.get(that.host+'/localarticle/'+artcile_id,{
+                        responseType:'json',
+                        changeOrigin: true,
+                        withCredentials:true,  
+                        headers: {
+                            'Authorization': this.token
+                        }
+                       })
+                       .then(resposne=>{
+                           if(resposne.data.code==0){
+                               that.local_items = resposne.data.local_items
+                           }
+                           else{
+                               alert(resposne.data.errmsg)
+                           }
+                       })
+            },1200)
+            
+        },
+        not_get_articl_info:function(artcile_id){
+            clearTimeout(timer)
+            // this.show_article_info=false
+        },
+        close_local_box:function(){
+            this.show_article_info=false
         }
     }
 })
@@ -187,10 +224,13 @@ var label = new Vue({
     el:"#label",
     data:{
         host:"http://127.0.0.1:8000",
-        new_items:[]
+        new_items:[],
+        host_items:[{'title':'Ces','time':'2020-06-01'},{'title':'Ces','time':'2020-06-01'},{'title':'Ces','time':'2020-06-01'},{'title':'Ces','time':'2020-06-01'},{'title':'Ces','time':'2020-06-01'}]
+
     },
     mounted:function(){
         this.get_hot_article()
+        this.get_hot_list()
     },
     methods:{
         get_hot_article:function(){
@@ -212,6 +252,68 @@ var label = new Vue({
         getMethod:function(id){
             
             window.location.href='article_detail.html?id='+id
-        }
+        },
+        get_hot_list:function(){
+            axios.get(this.host+'/hotlist',{
+                responseType:'json',
+                changeOrigin: true,
+                withCredentials:true,
+            })
+            .then(response=>{
+                if (response.data.code==0){
+                    this.host_items = response.data.data
+                }
+                else{
+                    alert(response.data.errmsg)
+                }
+
+            })
+        },
+       
     }
 })
+
+var isshowlogout = new Vue({
+    el:"#banner",
+    data:{ 
+        host:"http://127.0.0.1:8000",
+        isshowlogout:false,
+        token: localStorage.token,
+    },
+    methods:{
+        showlogout:function(){
+           
+            this.isshowlogout=true
+        },
+        notshowlogout:function(){
+            setTimeout(()=>{
+                this.isshowlogout=false
+            },1500)
+            
+        },
+        logout:function(){
+            axios.post(this.host+'/logout',{},{
+                responseType:'json',
+                changeOrigin: true,
+                withCredentials:true,
+                headers: {
+                    'Authorization': this.token
+                }
+
+            })
+            .then(response=>{
+                if (response.data.code==0){
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("username")
+                    alert('退出登陆成功')
+                    window.location.reload();
+                }
+                else{
+                    alert(response.data.errmsg)
+                }
+            })
+        }
+    }
+
+})
+

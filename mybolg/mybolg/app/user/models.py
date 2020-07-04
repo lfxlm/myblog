@@ -22,5 +22,6 @@ class User(AbstractUser):
             'username': self.mobile,
             'gender': self.gender,
             'info': self.info,
-            'avatar': self.avatar
+            'avatar': self.avatar,
+            'time':self.last_login.strftime('%Y-%m-%d %H:%M:%S'),
         }

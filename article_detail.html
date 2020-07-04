@@ -6,27 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>detail</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="vue.js"></script>
+    <script src="js/vue.js"></script>
     <script src="js/common.js"></script>
-    <script src="axios-0.18.0.min.js"></script>
+    <script src="js/axios-0.18.0.min.js"></script>
 </head>
 
 <body style="margin: 0;background-color:#F6F6F6;">
     <div id="banner">
         <div id='banner_1'>
             <span class="nav"></span>
-            <span class="nav nav2">蘑菇博客</span>
+            <span class="nav nav2" onclick="index()">蘑菇博客</span>
             <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'"
                 onmouseout="this.style.color='#777'">首页</span>
             <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
                 onmouseout="this.style.color='#777'">关于我</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
-            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="001博客/image/serach.png"></span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="toclassify()">归档</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tosort()">分类</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tochanel()">标签</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tomessage()">留言板</span>
+            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
             <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
-            <span class='icon2' onclick="login()"><img class='serach' src="001博客/image/user.png"></span>
+            <div @mouseover="showlogout" @mouseout='notshowlogout' class='hight_div'>
+                <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+            </div>
+            </div>
+            <div  class='logout1' v-if='isshowlogout'>
+                <div  class='ceshi'><div class='text_hight1'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"onclick="login()">个人中心</div> </div>
+                <div class='ceshi'><div class='text_hight2'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click="logout">退出登陆</div></div>
+            </div>
         </div>
     </div>
     <br>

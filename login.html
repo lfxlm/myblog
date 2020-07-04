@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="vue.js"></script>
-    <script src="axios-0.18.0.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios-0.18.0.min.js"></script>
     
 </head>
 <body style="margin: 0;background-color:#F6F6F6;background: linear-gradient(to left,#d3959b,#bfe6ba);">
     <div id="banner">
         <div id='banner_1'>
             <span class="nav"></span>
-            <span class="nav nav2" >蘑菇博客</span>
+            <span class="nav nav2" onclick="index()" >蘑菇博客</span>
             <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">首页</span>
             <span class="nav nav3" >关于我</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
-            <span class='icon1' id="t1" onclick="test()" ><img class='serach'src="001博客/image/serach.png"></span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="toclassify()">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tosort()">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tochanel()">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tomessage()">留言板</span>
+            <span class='icon1' id="t1" onclick="test()" ><img class='serach'src="/image/serach.png"></span>
             <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
-            <span class='icon2' onclick="login()"><img class='serach'src="001博客/image/user.png"></span>
+            <span class='icon2' onclick="login()"><img class='serach'src="/image/user.png"></span>
         </div>
     </div>
     <br>
@@ -39,7 +39,7 @@
             <br>
             <div>
                 <input class='t_box2' type="number" placeholder="请输入手机号" v-model="mobile">
-                <img class='serach_1'src="001博客/image/user.png">
+                <img class='serach_1'src="/image/user.png">
             </div>
             <br>
             <br>

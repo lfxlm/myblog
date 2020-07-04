@@ -14,7 +14,7 @@ class Article(models.Model):
     follow_count = models.IntegerField(default=0)
     read_count = models.IntegerField(default=0)
     avatar = models.CharField(max_length=1000, verbose_name='封面', null=True)
-    channel = models.CharField(max_length=20, default='编程')
+    channel = models.CharField(max_length=20, default='编程')  # 默认标签
 
     class Meta:
         db_table = 't_article'
@@ -30,9 +30,50 @@ class Article(models.Model):
             'read_count': self.read_count,
             'avatar': self.avatar,
             'channel': self.channel,
-            'content': self.content,
-
+            'content': self.content
         }
+
+
+class Channel(models.Model):
+    # 标签表
+    name = models.CharField(unique=True, max_length=10)
+
+    class Meta:
+        db_table = 't_channel'
+        verbose_name = '标签表'
+        verbose_name_plural = verbose_name
+
+
+class Art_Channel(models.Model):
+    # 博客标签表
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        db_table = 't_art_channel'
+        verbose_name = '标签表'
+        verbose_name_plural = verbose_name
+
+
+class Classify(models.Model):
+    # 分类表
+    name = models.CharField(unique=True, max_length=10)
+
+    class Meta:
+        db_table = 't_classify'
+        verbose_name = '标签表'
+        verbose_name_plural = verbose_name
+
+
+class Art_Class(models.Model):
+    # 博客分类表
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    classify = models.ForeignKey(Classify, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        db_table = 't_art_classify'
+        verbose_name = '标签表'
+        verbose_name_plural = verbose_name
 
 
 class Comment(models.Model):

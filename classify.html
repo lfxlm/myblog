@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/classify.css">
+    <script src="js/vue.js"></script>
+    <script src="js/axios-0.18.0.min.js"></script>
+    <script src="js/common.js"></script>
+</head>
+
+<body style="margin: 0;background-color:#F6F6F6;">
+    <div id="banner">
+        <div id='banner_1'>
+            <span class="nav"></span>
+            <span class="nav nav2" onclick="index()">蘑菇博客</span>
+            <span class="nav " onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                onclick="index()">首页</span>
+            <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'">关于我</span>
+            <span class="nav nav3" onclick="toclassify()">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                onclick="tosort()">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                onclick="tochanel()">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                onclick="tomessage()">留言板</span>
+            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
+            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+            <div @mouseover="showlogout" @mouseout='notshowlogout' class='hight_div'>
+                <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+            </div>
+            <div class='logout' v-if='isshowlogout'>
+                <div class='ceshi'>
+                    <div class='text_hight1' onmouseover="this.style.color='#01A7EC'"
+                        onmouseout="this.style.color='#777'" onclick="login()">个人中心</div>
+                </div>
+                <div class='ceshi'>
+                    <div class='text_hight2' onmouseover="this.style.color='#01A7EC'"
+                        onmouseout="this.style.color='#777'" @click="logout">退出登陆</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 主体头部 -->
+    <div>
+        <img class="t_img" src="/image/12.jpg">
+    </div>
+    <div class='t_div'>
+        <div id="t_banner" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+            onmouseout="this.style.color='#FFFFFF'">网站首页</div>
+        <div id="t_banner2" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#FFFFFF'">归档</div>
+        <hr class='my_line'>
+        <div id="t_banner3">有些的时候，正是为了爱才悄悄躲开。躲开的是身影，躲不开的却是那份默默的情怀。</div>
+    </div>
+
+    <!-- 正文 -->
+    <div id='app'>
+        <div class='sort' id='text_sort'>正序</div>
+        <div class='choice' @click="chocie_sort" id='choice_id'>
+            <div class='choice_box' id='choice_box_id'></div>
+        </div>
+        <div class='sorted' id='text_sorted'>倒序</div>
+        <!-- 左边导航 -->
+        <div  class='main_box'>
+            <div class='left_div' v-for='(item,index) in items'>
+                <div class='bool'></div>
+                <hr class='line_1' v-if='show_line(index)'>
+                <div id='time' class="time_size" onmouseover="this.style.color='#01A7EC'"
+                    onmouseout="this.style.color='#777'" @click='get_article_bytime(item.time)'><div :class="{active:index==isActive}" @click='showblue(index)'>{{item.time}}</div></div>
+            </div>
+            <!-- 右边正文 -->
+            <div class='right_div9'>
+            <div v-for="art in art_items" >
+            <div  class='right_div10'>
+                <div class='bool1'></div>
+                <hr class='line_2' >
+                <div id='time' class="time_size1" >
+                    {{art.time}}
+                    <div class='box_1'><div class='text_size' onmouseover="this.style.color='#01A7EC'"
+                        onmouseout="this.style.color='black'" @click='getMethod(art.id)'>{{art.title}}</div>
+                    <div class='chanel_szie'> {{art.channel1}} </div>
+                    <div class='chanel_szie1'> {{art.channel2}} </div>
+                    <div class='chanel_szie2'> {{art.channel3}}</div>
+                 </div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class='footer10'>
+       
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> Copyright 2019-2020 蘑菇博客</div>
+        </div>
+        <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> 赣ICP备18014504号</div></div>
+    </footer>
+    <script src="js/classify.js"></script>
+</body>
+
+</html>

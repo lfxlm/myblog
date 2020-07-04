@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="vue.js"></script>
+    <script src="js/vue.js"></script>
     <script src="js/common.js"></script>
-    <script src="axios-0.18.0.min.js"></script>
+    <script src="js/axios-0.18.0.min.js"></script>
 
 </head>
 
@@ -16,19 +16,28 @@
     <div id="banner">
         <div id='banner_1'>
             <span class="nav"></span>
-            <span class="nav nav2">蘑菇博客</span>
-            <span class="nav nav3">首页</span>
+            <span class="nav nav2" >蘑菇博客</span>
+            <span class="nav nav3" >首页</span>
             <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
                 onmouseout="this.style.color='#777'">关于我</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">归档</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">分类</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">标签</span>
-            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">留言板</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="toclassify()">归档</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tosort()">分类</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tochanel()">标签</span>
+            <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tomessage()">留言板</span>
             <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
             <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
-            <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+            <div @mouseover="showlogout" @mouseout='notshowlogout' class='hight_div'>
+            <span class='icon2' onclick="login()"  ><img class='serach' src="/image/user.png"></span>
+        </div>
+        <div  class='logout' v-if='isshowlogout'>
+            <div  class='ceshi'><div class='text_hight1'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"onclick="login()">个人中心</div> </div>
+            <div class='ceshi'><div class='text_hight2'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" @click="logout">退出登陆</div></div>
         </div>
     </div>
+        </div>
+    </div>
+    
+    
     <br>
     <div class='img_lb' id="img">
         <img class='img_size' src="/image/4.jpg">
@@ -60,18 +69,43 @@
                     <div class='chaenl_box8' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">docker</div>
                     <div class='chaenl_box9' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#F5F8F8'">mysql</div>
                 </div>
+                <br>
+                <br>
+                <div class='chanel_box3' >
+                    <div class='channel_box2'>点击排行</div>
+                    <div v-for="host_item in host_items">
+                    <div @click='getMethod(host_item.id)'>
+                    <div class='img_hight'  ><img class='img_size_10'v-bind:src="host_item.avatar" ></div>
+                    <div class='host_title_size' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#48494D'" >{{host_item.title}}</div>
+                    <div class='host_item_time'>{{host_item.time}}</div></div>
+                    
+                </div>
+                </div>
             </div>
         </div>
     </div>
     <div id='art_app'>
+        <!-- 显示局部文章展示 -->
+        <div class='why' v-if='show_article_info'>
+        <div   v-for="local in local_items">
+            <div >
+            <div v-if='!local.title' class='load_size'>数据等在加载中...</div> 
+            <div class='close' @click='close_local_box' >x</div>
+                <div class='local_title' @click="getMethod(local.id)">{{local.title}}</div>
+                <div class='local_username' @click="getMethod(local.id)">作者:{{local.username}}</div>
+                <div class='local_content' @click="getMethod(local.id)">{{local.content}}</div>
+            </div>  
+        </div> 
+        </div>
+
+
         <div v-for='(item,index) in items'>
             <div class='max_area'>
                 <div @click='getMethod(item.id)' class='front_size' onmouseover="this.style.color='#01A7EC'"
                     onmouseout="this.style.color='#555555'">{{item.title}}</div>
                 <div class='img_size_2' id='img2'>
-                    <img @click="getMethod(item.id)" class='img_size_2' v-bind:src="item.avatar">
-                </div>
-           
+                    <img @click="getMethod(item.id)"  @mouseover='get_articl_info(item.id)' @mouseout='not_get_articl_info(item.id)'class='img_size_2' v-bind:src="item.avatar">
+                </div> 
                 <div class='img_lb_right_3'>
                     <img class='img_size_3' src="/image/用户.png">
                     <span class='font_color'>{{item.username}} &nbsp;&nbsp;&nbsp;</span>
