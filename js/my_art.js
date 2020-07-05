@@ -77,8 +77,8 @@ var tomessage=function(){
     window.location.href='message.html'
 }
 var login = function(){
-    var  username = getCookie('username')
-    if (username ==null){
+    var  token = localStorage.token
+    if (token ==null){
     alert("您未登录,正在跳转到登陆页面")
     window.location.href='login.html'
     }
@@ -137,7 +137,7 @@ var isshowlogout = new Vue({
                     localStorage.removeItem("token")
                     localStorage.removeItem("username")
                     alert('退出登陆成功')
-                    window.location.reload();
+                    window.location.href='login.html';
                 }
                 else{
                     alert(response.data.errmsg)
@@ -153,7 +153,7 @@ var get_info = new Vue({
     data:{
         host:"http://127.0.0.1:8000",
         token: localStorage.token,
-        comment_items:[{'title': '测试数据', 'username': '17356586732', 'time': '2020-07-02 16:28:34', 'comment': '测试一下吧'}, {'title': '测试数据', 'username': '17356586732', 'time': '2020-07-02 16:53:58', 'comment': '1111'},],
+        comment_items:[],
         history_items:[],
         vist_items:[{'username':'lisi','time':'1234'}],
         times:10,
@@ -161,6 +161,7 @@ var get_info = new Vue({
         delete_comment_id:'',
         isdelete_history:false,
         history_article_id:'',
+        show_no_article:true
     },
     mounted:function(){
         this.get_to_my_comment()
@@ -180,7 +181,14 @@ var get_info = new Vue({
             })
             .then(response=>{
                 if(response.data.code==0){
-                    this.comment_items = response.data.comment_items
+                    if(response.data.comment_items.length==0){
+                        this.show_no_article=true
+                    }
+                    else{
+                        this.show_no_article = false
+                        this.comment_items = response.data.comment_items
+                    }
+                    
                 }
                 else{
                     alert(response.data.errmsg)

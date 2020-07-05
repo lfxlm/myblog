@@ -237,3 +237,7 @@ html{
     top: 10px;
     left: 130px;
 }
+.have_no_article{
+    position:absolute;
+    left: 385px;
+}

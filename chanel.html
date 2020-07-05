@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/classify.css">
     <script src="js/vue.js"></script>
     <script src="js/axios-0.18.0.min.js"></script>
     <script src="js/common.js"></script>
@@ -33,14 +34,59 @@
     </div>
         </div>
 <!-- 主体部分 -->
-        <div>
-            <img class="t_img" src="/image/11.jpg">
-        </div> 
-        <div class='t_div'>
-            <div id="t_banner" onclick="index()"onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#FFFFFF'">网站首页</div>
-            <div id="t_banner2"onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#FFFFFF'">关于我</div>
-            <div id="t_banner3">有些的时候，正是为了爱才悄悄躲开。躲开的是身影，躲不开的却是那份默默的情怀。</div>
+<div>
+    <img class="t_img" src="/image/12.jpg">
+</div>
+<div class='t_div'>
+    <div id="t_banner" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+        onmouseout="this.style.color='#FFFFFF'">网站首页</div>
+    <div id="t_banner2" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#FFFFFF'">标签</div>
+    <hr class='my_line'>
+    <div id="t_banner3">有些的时候，正是为了爱才悄悄躲开。躲开的是身影，躲不开的却是那份默默的情怀。</div>
+</div>
+
+<!-- 正文 -->
+<div id='app'>
+    <div class='sort' id='text_sort'>正序</div>
+    <div class='choice' @click="chocie_sort" id='choice_id'>
+        <div class='choice_box' id='choice_box_id'></div>
+    </div>
+    <div class='sorted' id='text_sorted'>倒序</div>
+    <!-- 左边导航 -->
+    <div class='main_box1'>
+        <div class='left_div' v-for='(item,index) in items'>
+            <div class='bool'></div>
+            <hr class='line_1' v-if='show_line(index)'>
+            <div id='time' class="time_size" onmouseover="this.style.color='#01A7EC'"
+                onmouseout="this.style.color='#777'" @click='get_article_bychanel(item.channel)'><div :class="{active:index==isActive}" @click='showblue(index)'>{{item.channel}}</div></div>
         </div>
-  <script src="js/classify.js"></script>  
+        <!-- 右边正文 -->
+        <div class='right_div_channel'>
+        <div v-for="art in art_items" >
+        <div  class='right_div1'>
+            <div class='bool1'></div>
+            <hr class='line_2' >
+            <div id='time' class="time_size1" >
+                {{art.time}}
+                <div class='box_1'><div class='text_size' onmouseover="this.style.color='#01A7EC'"
+                    onmouseout="this.style.color='black'" @click='getMethod(art.id)'>{{art.title}}</div>
+                <div class='chanel_szie' v-if='art.channel_1'> {{art.channel_1}} </div>
+                <div class='chanel_szie1' v-if='art.channel_2'> {{art.channel_2}} </div>
+                <div class='chanel_szie2' v-if='art.channel_3'> {{art.channel_3}}</div>
+             </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+<footer class='footer10'>
+       
+    　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> Copyright 2019-2020 蘑菇博客</div>
+    </div>
+    <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> 赣ICP备18014504号</div></div>
+</footer>
+
+  <script src="js/channel.js"></script>  
 </body>
 </html>

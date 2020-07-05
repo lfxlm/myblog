@@ -43,15 +43,21 @@
         <div class='detail_box2'>
             <div class='detail_box_1'>个人信息</div>
             <input class='detail_button' type="button" value="修改" @click="alter_info()">
+            <input class='detail_button_1' type="button" value="保存" @click="save_info()" v-if='show_save_button'>
         </div>
         <div class='detail_box3'>
+            <img v-bind:src='avatar' class='avatar_size' id='avatar' >
+            <input type="file" class='img_size_save' @change='upload_photo' accept="image/gif, image/jpeg, image/png, image/jpg">
             <div>用户名:</div><span class='detail_span'>{{username}}</span>
+            <input type="text" v-model="username" class='detail_span_1' v-if='showchange'>
             <br>
             <div>手机号码:</div><span class='detail_span'>{{mobile}}</span>
             <br>
             <div>性别:</div><span class='detail_span'>{{gender}}</span>
+            <input type="text" v-model="gender" class='detail_span_1' v-if='showchange'>
             <br>
-            <div>个人标签:</div><span class='detail_span detail_span_info'>{{info}}</span>
+            <div>个人标签:</div><div class='detail_span_info'>{{info}}</div>
+            <textarea v-model='info' class='detail_span_2' cols="67" rows="10" v-if='showchange' ></textarea>
         </div>
     </div>
     <div class="detail_box4" id="new_app">

@@ -29,8 +29,9 @@ var tomessage=function(){
     window.location.href='message.html'
 }
 var login = function(){
-    var  username = getCookie('username')
-    if (username ==null){
+    var  token = localStorage.token
+    if (token ==null){
+        alert(token)
     alert("您未登录,正在跳转到登陆页面")
     window.location.href='login.html'
     }
@@ -207,7 +208,7 @@ var new_app = new Vue({
                                alert(resposne.data.errmsg)
                            }
                        })
-            },1200)
+            },300)
             
         },
         not_get_articl_info:function(artcile_id){

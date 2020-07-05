@@ -8,7 +8,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import View
 
-from article.models import Article, Relation, Comment, Art_Class, Classify
+from article.models import Article, Relation, Comment, Art_Class, Classify, Channel, Art_Channel
 from mybolg.utils.history import add_history
 from mybolg.utils.jwt import get_token, get_user_by_token
 from user.models import User
@@ -114,8 +114,6 @@ class RelateArticleView(View):
 class ArticleCommentView(View):
     def get(self, request):
         art_id = request.GET.get('id')
-        # token = get_token(request)
-        # user = get_user_by_token(token)
         data = []
         try:
             comments = Comment.objects.filter(article_id=art_id, parent_id=None, is_del=0).order_by('-ctime')
@@ -294,7 +292,7 @@ class ToMyCommentView(View):
                 'comment_id': comment.id,
 
             })
-        return JsonResponse({'errmsg': 'ok', 'code': 0, 'comment_items': comment_items})
+        return JsonResponse({'errmsg': 'ok', 'code': 0, 'comment_items': comment_items[::-1]})
 
 
 class AdminDelCommentView(View):
@@ -356,3 +354,37 @@ class LocalArticleView(View):
             'content': article.content
         }
         return JsonResponse({'errmsg': 'ok', 'code': 0, 'local_items': [dict]})
+
+
+class ArtBYChannel(View):
+    def post(self, request):
+        # 侧边栏
+        channel_items = Channel.objects.all().order_by('id')
+        channel_list = []
+        for channel in channel_items:
+            channel_list.append({
+                'id': channel.id,
+                'channel': channel.name
+            })
+        dict = json.loads(request.body.decode())
+        channel = dict.get('channel')
+        if not channel:
+            channel = Channel.objects.get(name='python')
+        else:
+            # 传递了参数
+            channel = Channel.objects.get(name=channel)
+        art_items = Art_Channel.objects.filter(channel=channel)
+        art_items_list = []
+        for art_channel in art_items:
+            dict = art_channel.article.to_dict()
+            try:
+                new_channel = Art_Channel.objects.filter(article=art_channel.article)
+                i = 1
+                for channel_item in new_channel:
+                    dict['channel_%s' % i] = channel_item.channel.name
+                    i += 1
+                art_items_list.append(dict)
+            except Exception as e:
+                pass
+        return JsonResponse(
+            {"errmsg": "ok", 'code': 0, 'channel_items': channel_list, 'art_items': art_items_list})

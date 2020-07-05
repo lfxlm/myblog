@@ -30,8 +30,9 @@ var tomessage=function(){
 }
  
  var login = function(){
-     var  username = getCookie('username')
-     if (username ==null){
+    var  token = localStorage.token
+    if (token ==null){
+        alert(token)
      alert("您未登录,正在跳转到登陆页面")
      window.location.href='login.html'
      }
@@ -210,3 +211,4 @@ var app = new Vue({
          }
     }
 })
+

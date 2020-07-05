@@ -29,8 +29,9 @@ var tomessage=function(){
 }
  
 var login = function () {
-    var username = getCookie('username')
-    if (username == null) {
+    var  token = localStorage.token
+    if (token ==null){
+        alert(token)
         alert("您未登录,正在跳转到登陆页面")
         window.location.href = 'login.html'
     }
@@ -48,6 +49,15 @@ var app = new Vue({
         items: [],
         relate_items: [],
         token: localStorage.token,
+        isShow: true,
+        isshow_del: true,
+        commont_items: [],
+        comment: '',
+        isdelshow: true,
+        show_reply:false,
+        reply_comment:'',
+        index:"",
+        isShowReply:'haha'
 
 
     },
@@ -55,8 +65,29 @@ var app = new Vue({
         id = window.location.search
         this.get_article_info()
         this.get_relate_article()
+        // id = window.location.search
+        this.get_commont()
     },
     methods: {
+        reply:function(index){
+            if(this.isShowReply=='haha'){
+             this.isShowReply = index 
+            }
+            else{
+                this.isShowReply = 'haha'
+ 
+            }
+             
+         },
+         show_reply_test:function(index){
+             if(this.isShowReply==index){
+               
+                 return true
+             }
+             else{
+                 return false
+             }
+         },
         get_article_info: function () {
             axios.get(this.host + '/article' + id, {
                 responseType: 'json',
@@ -116,28 +147,7 @@ var app = new Vue({
         },
         to_article: function (id) {
             window.location.href = 'article_detail.html?id=' + id
-        }
-    }
-})
-var new_app = new Vue({
-    el: '#new_app',
-    data: {
-        host: "http://127.0.0.1:8000",
-        isShow: true,
-        isshow_del: true,
-        commont_items: [],
-        token: localStorage.token,
-        comment: '',
-        isdelshow: true,
-        show_reply:false,
-        reply_comment:'',
-        index:""
-    },
-    mounted: function () {
-        id = window.location.search
-        this.get_commont()
-    },
-    methods: {
+        },
         get_commont: function () {
             axios.get(this.host + '/commonts' + id, {
                 responseType: 'json',
@@ -214,7 +224,9 @@ var new_app = new Vue({
         },
         // 取消评论
         resetcomment: function () {
-            this.comment = ''
+            this.reply_comment = ''
+            this.show_reply=false
+            this.isShowReply = 'haha'
         },
         //  回复评论
         recvecomment: function (com_id) {
@@ -304,6 +316,4 @@ var isshowlogout = new Vue({
             })
         }
     }
-
 })
-

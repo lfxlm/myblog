@@ -72,6 +72,7 @@
         </div>
         <!-- 我的评论 -->
         <div class='title_comment'>文章评论</div>
+        <div class='have_no_article' v-if='show_no_article'>您还没有发表文章呢...</div>
         <div class='comment_max_box' >
         <div v-for='comment in comment_items'>
             <div class='comment_max_box1' >

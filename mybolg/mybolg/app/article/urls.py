@@ -19,4 +19,5 @@ urlpatterns = [
     re_path(r'^comment$', views.AdminDelCommentView.as_view()),
     re_path(r'^art_by_classify$', views.ArtByClassifyView.as_view()),
     re_path(r'^localarticle/(?P<article_id>\d+)$', views.LocalArticleView.as_view()),
+    re_path(r'^art_by_channel$', views.ArtBYChannel.as_view()),
 ]

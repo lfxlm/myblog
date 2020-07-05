@@ -11,28 +11,39 @@
     <script src="js/axios-0.18.0.min.js"></script>
 </head>
 
-<body style="margin: 0;background-color:#F6F6F6;">
-    <div id="banner">
-        <div id='banner_1'>
-            <span class="nav"></span>
-            <span class="nav nav2" onclick="index()">蘑菇博客</span>
-            <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'"
-                onmouseout="this.style.color='#777'">首页</span>
-            <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
-                onmouseout="this.style.color='#777'">关于我</span>
-                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="toclassify()">归档</span>
-                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tosort()">分类</span>
-                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tochanel()">标签</span>
-                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" onclick="tomessage()">留言板</span>
-            <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
-            <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
-            <div @mouseover="showlogout" @mouseout='notshowlogout' class='hight_div'>
-                <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+<body style="margin: 0;background-color:#F6F6F6; height: 100%;">
+    <div>
+        <div id="banner">
+            <div id='banner_1'>
+                <span class="nav"></span>
+                <span class="nav nav2" onclick="index()">蘑菇博客</span>
+                <span class="nav" onclick="index()" onmouseover="this.style.color='#01A7EC'"
+                    onmouseout="this.style.color='#777'">首页</span>
+                <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
+                    onmouseout="this.style.color='#777'">关于我</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                    onclick="toclassify()">归档</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                    onclick="tosort()">分类</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                    onclick="tochanel()">标签</span>
+                <span class="nav" onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"
+                    onclick="tomessage()">留言板</span>
+                <span class='icon1' id="t1" onclick="test()"><img class='serach' src="/image/serach.png"></span>
+                <span class='icon3' id='t3' hidden=flase><input type="text" placeholder="想搜什么呢?" id=""></span>
+                <div @mouseover="showlogout" @mouseout='notshowlogout' class='hight_div'>
+                    <span class='icon2' onclick="login()"><img class='serach' src="/image/user.png"></span>
+                </div>
             </div>
-            </div>
-            <div  class='logout1' v-if='isshowlogout'>
-                <div  class='ceshi'><div class='text_hight1'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"onclick="login()">个人中心</div> </div>
-                <div class='ceshi'><div class='text_hight2'onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click="logout">退出登陆</div></div>
+            <div class='logout1' v-if='isshowlogout'>
+                <div class='ceshi'>
+                    <div class='text_hight1' onmouseover="this.style.color='#01A7EC'"
+                        onmouseout="this.style.color='#777'" onclick="login()">个人中心</div>
+                </div>
+                <div class='ceshi'>
+                    <div class='text_hight2' onmouseover="this.style.color='#01A7EC'"
+                        onmouseout="this.style.color='#777'" @click="logout">退出登陆</div>
+                </div>
             </div>
         </div>
     </div>
@@ -81,75 +92,88 @@
                                 onmouseout="this.style.color='#777'" @click='to_article(relate_item.id)'>
                                 {{relate_item.title2}}</div>
                         </div>
-                       
+
+                    </div>
+                    <div id='new_app' class='comment_box'><img class='img_size_0' src="image/评论.png">
+                        <div class='text_size_1'>文章评论</div>
+                        <hr class='related_line_size_1'>
+                        <img class='img_size_5' src="image/user.png">
+                        <textarea class='text_area2' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~'
+                            v-model='comment'>{{comment}}</textarea>
+                        <div class='send_commont_detail' onmouseover="this.style.backgroundColor='#FFBCC5'"
+                            onmouseout="this.style.backgroundColor='#409EFF'">
+                            <div class='text_hight' @click='sendcomment'>发送评论</div>
+                        </div>
+                        <div class='send_commont_detail2' onmouseover="this.style.backgroundColor='#FFBCC5'"
+                            onmouseout="this.style.backgroundColor='#909399'">
+                            <div class='text_hight' @click='resetcomment'>取消评论</div>
+                        </div>
+                        <div class='t_size' v-if='isShow'>
+                            还没有评论，快来抢沙发吧！
+                        </div>
+                        <div class='commont_box' v-for='(commont,index) in commont_items' v-if="commont.del=='0'">
+                            <img class='img_size_6' v-bind:src="commont.useravatar">
+                            <!-- 评论正文 -->
+                            <div class='username_size'>{{commont.username}}</div>
+                            <div class='time_size'>{{commont.time}}</div>
+                            <div class='commont_size'>{{commont.comment}}</div>
+                            <div class='no1' onmouseover="this.style.color='#01A7EC'"
+                                onmouseout="this.style.color='#777'" @click='reply(index)'>回复</div>
+                            <div class='no2' onmouseover="this.style.color='#01A7EC'"
+                                onmouseout="this.style.color='#777'" @click='cant'>举报</div>
+                            <div class='no3' v-if='isshow_del' @click='del_my_comment(commont.id)'
+                                onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除</div>
+
+                            <!-- 显示评论回复 -->
+                            <div v-if='is_show_reply_comment(commont.subs)' class='reply_comment_size'
+                                v-for='reply in commont.subs'>
+                                <img class='img_size_6' v-bind:src="commont.useravatar">
+                                <!-- 评论正文 -->
+                                <div class='username_size'>{{reply.username}}</div>
+                                <div class='time_size'>{{reply.time}}</div>
+                                <div class='commont_size'>{{reply.comment}}</div>
+                                <div class='no1' onmouseover="this.style.color='#01A7EC'"
+                                    onmouseout="this.style.color='#777'" @click='cant'>回复</div>
+                                <div class='no2' onmouseover="this.style.color='#01A7EC'"
+                                    onmouseout="this.style.color='#777'" @click='cant'>举报</div>
+                                <div class='no3' v-if='isshow_del' @click='del_my_comment(reply.id)'
+                                    onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除
+                                </div>
+                            </div>
+                            <!-- 显示评论回复 -->
+
+                            <!-- 显示回复输入框 -->
+                            <div  v-if='show_reply_test(index)'>
+                            <div>
+                                <img class='img_size_7' src="image/user.png">
+                                <textarea class='text_area1_1' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~'
+                                    v-model='reply_comment'>{{reply_comment}}</textarea>
+                                <div class='send_commont_2' onmouseover="this.style.backgroundColor='#FFBCC5'"
+                                    onmouseout="this.style.backgroundColor='#409EFF'">
+                                    <div class='text_hight' @click='recvecomment(commont.id)'>回复评论</div>
+                                </div>
+                                <div class='send_commont2_1' onmouseover="this.style.backgroundColor='#FFBCC5'"
+                                    onmouseout="this.style.backgroundColor='#909399'">
+                                    <div class='text_hight' @click='resetcomment'>取消回复</div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id='new_app'class='comment_box'><img class='img_size_0' src="image/评论.png"> <div class='text_size_1'>文章评论</div> 
-        <hr class='related_line_size_1'>
-        <img class='img_size_5' src="image/user.png">
-        <textarea class='text_area' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~' v-model='comment'>{{comment}}</textarea>
-        <div class='send_commont' onmouseover="this.style.backgroundColor='#FFBCC5'"
-            onmouseout="this.style.backgroundColor='#409EFF'">
-            <div class='text_hight' @click='sendcomment'>发送评论</div>
-        </div>
-        <div class='send_commont2' onmouseover="this.style.backgroundColor='#FFBCC5'"
-            onmouseout="this.style.backgroundColor='#909399'">
-            <div class='text_hight' @click='resetcomment'>取消评论</div>
-        </div>
-        <div class='t_size' v-if='isShow'>
-            还没有评论，快来抢沙发吧！
-        </div>
-        <div class='commont_box' v-for='(commont,index) in commont_items' v-if="commont.del=='0'">
-            <img class='img_size_6' v-bind:src="commont.useravatar">
-            <!-- 评论正文 -->
-           <div class='username_size'>{{commont.username}}</div> 
-            <div class='time_size'>{{commont.time}}</div>
-            <div class='commont_size'>{{commont.comment}}</div>
-            <div class='no1' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" @click='show_reply_box(index)'>回复</div>
-            <div class='no2' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click='cant'>举报</div>
-            <div class='no3' v-if='isshow_del' @click='del_my_comment(commont.id)' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除</div>
-
-            <!-- 显示评论回复 -->
-            <div v-if='is_show_reply_comment(commont.subs)' class='reply_comment_size' v-for='reply in commont.subs'>
-                <img class='img_size_6' v-bind:src="commont.useravatar">
-            <!-- 评论正文 -->
-           <div class='username_size'>{{reply.username}}</div> 
-            <div class='time_size'>{{reply.time}}</div>
-            <div class='commont_size'>{{reply.comment}}</div>
-            <div class='no1' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'" @click='cant'>回复</div>
-            <div class='no2' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"  @click='cant'>举报</div>
-            <div class='no3' v-if='isshow_del' @click='del_my_comment(reply.id)' onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">删除</div>
+            <br>
+            <br>           
             </div>
-             <!-- 显示评论回复 -->
+            <br>
 
-            <!-- 显示回复输入框 -->
-            <div v-if='show_reply'> 
-                 <img class='img_size_7' src="image/user.png">
-        <textarea class='text_area1' cols="30" rows="10" placeholder='既然来了,那就留下些什么吧~' v-model='reply_comment'>{{reply_comment}}</textarea>
-        <div class='send_commont' onmouseover="this.style.backgroundColor='#FFBCC5'"
-            onmouseout="this.style.backgroundColor='#409EFF'">
-            <div class='text_hight' @click='recvecomment(commont.id)'>回复评论</div>
-        </div>
-        <div class='send_commont2' onmouseover="this.style.backgroundColor='#FFBCC5'"
-            onmouseout="this.style.backgroundColor='#909399'">
-            <div class='text_hight' @click='resetcomment'>取消回复</div>
-        </div>
-    </div>
-        </div>
-        <footer class='footer3'>
-            　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">Copyright 2019-2020 蘑菇博客
-            </div>
-            <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'">赣ICP备18014504号</div>
-        </footer>
-    
-    </div>
-    
-    
-   
-    <script src="js/article_detail.js"></script>
+
+
+        
+
+
+        <script src="js/article_detail.js"></script>
 </body>
 
 </html>

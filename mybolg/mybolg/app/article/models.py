@@ -1,5 +1,6 @@
 import datetime
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 # Create your models here.
@@ -9,7 +10,7 @@ from user.models import User
 class Article(models.Model):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.CharField(max_length=500)
+    content = RichTextUploadingField(default='', verbose_name='文章内容')
     time = models.DateTimeField(auto_now_add=True)
     follow_count = models.IntegerField(default=0)
     read_count = models.IntegerField(default=0)
