@@ -162,14 +162,14 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
-    "history": {  # 验证码信息: 存到 4 号库 3号库已经被占用
+    "history": {  # 浏览记录信息: 存到 4 号库 3号库已经被占用
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/4",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
-    "carts": {  # 验证码信息: 存到 5 号库 3号库已经被占用
+    "cache": {  # 缓存信息: 存到 5 号库 3号库已经被占用
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/5",
         "OPTIONS": {

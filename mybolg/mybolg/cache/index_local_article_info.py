@@ -1,2 +1,4 @@
-def add_index_article_info(article):
-    pass
+from django_redis import get_redis_connection
+
+
+

@@ -133,12 +133,19 @@ var new_app = new Vue({
         showno:false,
         show_article_info:false,
         get_local_article:'',
+        float:0
 
     },
     mounted:function(){
         this.get_article_info()
     },
     methods:{
+        Float:function(index){
+            this.float=index
+        },
+        NotFloat:function(index){
+            this.float=-1
+        },
         get_article_info:function(){
             axios.get(this.host+'/articles',{
                 responseType:'json',

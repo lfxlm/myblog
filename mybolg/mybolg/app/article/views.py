@@ -7,6 +7,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views import View
+from django_redis import get_redis_connection
 
 from article.models import Article, Relation, Comment, Art_Class, Classify, Channel, Art_Channel
 from mybolg.utils.history import add_history
@@ -58,9 +59,7 @@ class ArticleInfoView(View):
         add_history(user_id=user.id, article_id=art_id)
         dict = art.to_dict()
         dict['username'] = user.username
-        list = []
-        list.append(dict)
-        return JsonResponse({'errmsg': 'ok', 'code': 0, 'data': list})
+        return JsonResponse({'errmsg': 'ok', 'code': 0, 'data': dict})
 
 
 # todo 可以使用redis缓存用户点赞列表和文章点赞列表
@@ -346,13 +345,17 @@ class ArtByClassifyView(View):
 
 class LocalArticleView(View):
     def get(self, request, article_id):
-        article = Article.objects.get(id=article_id)
-        dict = {
-            "id": article.id,
-            'title': article.title,
-            'username': article.user.username,
-            'content': article.content
-        }
+        redis_conn = get_redis_connection('cache')
+        dict = redis_conn.hgetall('article:%s' % article_id)
+        if not dict:
+            article = Article.objects.get(id=article_id)
+            dict = {
+                "id": article.id,
+                'title': article.title,
+                'username': article.user.username,
+                'content': article.content
+            }
+            redis_conn.hmset('article:%s' % article_id, dict)
         return JsonResponse({'errmsg': 'ok', 'code': 0, 'local_items': [dict]})
 
 

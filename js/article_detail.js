@@ -39,6 +39,7 @@ var login = function () {
         window.location.href = 'detail.html'
     }
 }
+// import "/Users/liufei/Documents/前端/从0开始学习前端/js/mdeditor.js"
 
 
 var app = new Vue({
@@ -57,8 +58,8 @@ var app = new Vue({
         show_reply:false,
         reply_comment:'',
         index:"",
-        isShowReply:'haha'
-
+        isShowReply:'haha',
+        // setMarkdown:""
 
     },
     mounted: function () {
@@ -67,6 +68,7 @@ var app = new Vue({
         this.get_relate_article()
         // id = window.location.search
         this.get_commont()
+        
     },
     methods: {
         reply:function(index){
@@ -99,7 +101,9 @@ var app = new Vue({
             })
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.items = response.data.data
+                        // response.data.data.content = this.setMarkdown(response.data.data.content)
+                        this.items = [response.data.data]
+                        
                     }
                     else {
                         alert(response.data.errmsg)

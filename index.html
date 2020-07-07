@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="js/vue.js"></script>
@@ -16,7 +16,7 @@
     <div id="banner">
         <div id='banner_1'>
             <span class="nav"></span>
-            <span class="nav nav2" >蘑菇博客</span>
+            <span class="nav nav2" >飞鱼博客</span>
             <span class="nav nav3" >首页</span>
             <span class="nav" onclick="toabout()" onmouseover="this.style.color='#01A7EC'"
                 onmouseout="this.style.color='#777'">关于我</span>
@@ -100,7 +100,7 @@
 
 
         <div v-for='(item,index) in items'>
-            <div class='max_area'>
+            <div class='max_area' :class="{max_area_11:index==float}" @mouseover='Float(index)'  @mouseout='NotFloat(index)'>
                 <div @click='getMethod(item.id)' class='front_size' onmouseover="this.style.color='#01A7EC'"
                     onmouseout="this.style.color='#555555'">{{item.title}}</div>
                 <div class='img_size_2' id='img2'>
@@ -128,13 +128,33 @@
 
     <footer class=footer1>
        
-        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> Copyright 2019-2020 蘑菇博客</div>
+        　　<div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> Copyright 2019-2020 飞鱼博客</div>
         </div>
         <div onmouseover="this.style.color='#01A7EC'" onmouseout="this.style.color='#777'"><div class='font_size11'> 赣ICP备18014504号</div></div>
     </footer>
 
 
     <script src="js/index.js"></script>
+    <script>
+        function setBodyWidth(){
+        var barWidthHelper=document.createElement('div');
+        barWidthHelper.style.cssText="overflow:scroll; width:100px; height:100px;";
+        document.body.appendChild(barWidthHelper);
+        var barWidth=barWidthHelper.offsetWidth-barWidthHelper.clientWidth;
+        document.body.removeChild(barWidthHelper);
+        var bodyWidth=window.screen.availWidth-barWidth;
+        return bodyWidth;
+    }
+                
+    $(document).ready(
+        function(){
+            var bodyWidth=setBodyWidth()+"px";
+            //document.body.style.width=bodyWidth;
+            $("body").css("width",bodyWidth);
+        }
+    );
+    
+    </script>
 </body>
 
 </html>
